@@ -161,7 +161,7 @@ export default function Home() {
           <RelatedVideos handlePlayThis={handlePlayThis} />
         </section>
       </div>
-      <WarningModal/>
+      {/* <WarningModal/> */}
     </main>
   );
 }
