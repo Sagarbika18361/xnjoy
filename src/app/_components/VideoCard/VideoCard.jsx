@@ -2,12 +2,7 @@ import formatNumber from "@/utils/formatNumber";
 import timeAgo from "@/utils/timeAgo";
 import { IoMdThumbsUp } from "react-icons/io";
 import { MdRemoveRedEye } from "react-icons/md";
-
-const VideoCard = ({ video, onClick }) => {
-  const handleVideoClick = () => {
-    onClick?.(video);
-  };
-
+export default function VideoCard({ video,handleVideoClick }) {
   return (
     <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
       <div 
@@ -62,4 +57,3 @@ const VideoCard = ({ video, onClick }) => {
   );
 };
 
-export default VideoCard;

@@ -5,15 +5,17 @@ import Pagination from "../Pagination/Pagination";
 import VideoCard from "../VideoCard/VideoCard";
 import CardSkeletons from "@/app/shared/Skeletons/CardSkeletons";
 
-const RelatedVideos = ({ handlePlayThis }) => {
+const RelatedVideos = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [allPages, setAllPages] = useState(1);
+  const router = useRouter();
   const api = process.env.NEXT_PUBLIC_API_URL;
 
   const getAllVideos = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(`${api}videos?page=${page}`);
       setLoading(false);
       setVideos(res?.data?.data);
@@ -37,7 +39,8 @@ const RelatedVideos = ({ handlePlayThis }) => {
 
   const handleVideoClick = (video) => {
     scrollToTop();
-    handlePlayThis(video);
+    // handlePlayThis(video);
+    router.push(`/${encodeURIComponent(video?.url)}`); // Navigate to video page with video id as parameter
   };
 
   return (
@@ -46,7 +49,7 @@ const RelatedVideos = ({ handlePlayThis }) => {
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4  gap-4">
         {loading && <CardSkeletons/>}
         {!loading && videos?.map((video) => (
-         <VideoCard video={video} key={video?._id} />
+         <VideoCard video={video} key={video?._id} handleVideoClick={handleVideoClick} />
         ))}
       </div>
       <Pagination page={page} allPages={allPages} setPage={setPage} />

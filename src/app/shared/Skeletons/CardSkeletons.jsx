@@ -6,7 +6,7 @@ export function CardSkeleton() {
       <div className="relative p-4 rounded bg-gray-300">
         <div className="flex gap-2 md:gap-3 items-start lg:items-start">
           <div className="w-50 h-50 aspect-square lg:w-100 lg:h-100 rounded-full shadow-lg bg-gray-200 overflow-hidden" />
-          <div className="ml-2 h-[200px] flex-1"></div>
+          <div className="ml-2 h-[150px] flex-1"></div>
         </div>
       </div>
 
