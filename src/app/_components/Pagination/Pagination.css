@@ -1,0 +1,16 @@
+.page-item.active .page-link {
+    background-color: var(--blue);
+    border-color: var(--blue);
+    margin: 0 2px;
+    border-radius: 4px;
+}
+
+.page-link {
+    color: var(--light-black);
+    background-color: var(--white);
+    margin: 0 1px !important;
+}
+
+.page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 0%) !important;
+}
