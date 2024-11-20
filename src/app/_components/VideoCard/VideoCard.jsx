@@ -3,7 +3,7 @@ import timeAgo from "@/utils/timeAgo";
 import { IoMdThumbsUp } from "react-icons/io";
 import React from "react";
 import { MdRemoveRedEye } from "react-icons/md";
-export default function VideoCard({ video }) {
+export default function VideoCard({ video,handleVideoClick }) {
   return (
     <div key={video?._id}>
       <div

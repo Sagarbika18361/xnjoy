@@ -5,11 +5,13 @@ function Navbar() {
     <div className="navbar grid grid-cols-6 gap-4 sm:gap-12 fixed top-0 w-[100%] shadow-lg px-6 py-2 ">
       <div className="col-span-6 sm:col-span-2">
         <div className="w-full flex justify-center sm:justify-start">
-        <img
-          src={"/logo.png"}
-          alt=""
-          className="w-32 h-10 object-cover cursor-pointer"
-        />
+          <Link href={"/"}>
+            <img
+              src={"/logo.png"}
+              alt=""
+              className="w-32 h-10 object-cover cursor-pointer"
+            />
+          </Link>
         </div>
       </div>
       <div className="col-span-6 sm:col-span-2">
