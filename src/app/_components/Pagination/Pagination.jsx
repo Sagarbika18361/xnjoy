@@ -41,11 +41,11 @@ const Pagination = ({ page, setPage, perPage, allPages }) => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center my-4">
       {+allPages > 0 && (
-        <ul className="pagination">
+        <ul className="pagination flex gap-4">
           
-          <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
+          <li className={`page-item ${page === 1 ? "disabled" : ""} border-2 rounded-md px-2`}>
             <Link
               href="#"
               className="page-link"
@@ -66,7 +66,7 @@ const Pagination = ({ page, setPage, perPage, allPages }) => {
           {getPageNumbersSubset().map((pag) => (
             <li
               key={pag}
-              className={`page-item ${page === pag ? "active" : ""}`}
+              className={`page-item ${page === pag ? "active" : ""} border-2 rounded-md px-2`}
             >
               <Link
                 href="#"
@@ -88,7 +88,7 @@ const Pagination = ({ page, setPage, perPage, allPages }) => {
               </li>
             )}
 
-          <li className={`page-item ${page === totalPages ? "disabled" : ""}`}>
+          <li className={`page-item ${page === totalPages ? "disabled" : ""} border-2 rounded-md px-2`}>
             <Link
               href="#"
               className="page-link"
