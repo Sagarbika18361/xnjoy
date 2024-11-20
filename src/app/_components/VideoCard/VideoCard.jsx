@@ -3,11 +3,11 @@ import timeAgo from "@/utils/timeAgo";
 import { IoMdThumbsUp } from "react-icons/io";
 import React from "react";
 import { MdRemoveRedEye } from "react-icons/md";
-export default function VideoCard({ video,handleVideoClick }) {
+import Link from "next/link";
+export default function VideoCard({ video }) {
   return (
-    <div key={video?._id}>
+    <Link href={`/${encodeURIComponent(video?.url)}`}>
       <div
-        onClick={() => handleVideoClick(video)}
         className="relative h-[200px] border rounded cursor-pointer p-1"
         key={video._id}
       >
@@ -45,6 +45,6 @@ export default function VideoCard({ video,handleVideoClick }) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

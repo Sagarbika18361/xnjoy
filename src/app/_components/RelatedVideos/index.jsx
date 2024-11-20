@@ -30,26 +30,13 @@ const RelatedVideos = () => {
     getAllVideos();
   }, [page]);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const handleVideoClick = (video) => {
-    scrollToTop();
-    // handlePlayThis(video);
-    router.push(`/${encodeURIComponent(video?.url)}`); // Navigate to video page with video id as parameter
-  };
-
   return (
     <section className="p-6">
       <h3 className="text-2xl font-bold">More like this</h3>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4  gap-4">
         {loading && <CardSkeletons/>}
         {!loading && videos?.map((video) => (
-         <VideoCard video={video} key={video?._id} handleVideoClick={handleVideoClick} />
+         <VideoCard video={video} key={video?._id} />
         ))}
       </div>
       <Pagination page={page} allPages={allPages} setPage={setPage} />
