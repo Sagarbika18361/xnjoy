@@ -66,7 +66,7 @@ const Pagination = ({ page, setPage, perPage, allPages }) => {
           {getPageNumbersSubset().map((pag) => (
             <li
               key={pag}
-              className={`page-item ${page === pag ? "active" : ""} border-2 rounded-md px-2`}
+              className={`page-item ${page === pag ? "active" : ""}`}
             >
               <Link
                 href="#"

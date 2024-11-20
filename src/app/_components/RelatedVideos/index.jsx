@@ -12,8 +12,9 @@ const RelatedVideos= ({ handlePlayThis }) => {
 
   const getAllVideos = async () => {
     try {
-      const res = await axios.get(`${api}videos`);
+      const res = await axios.get(`${api}videos?page=${page}`);
       setVideos(res?.data?.data);
+      setAllPages(res?.data?.totalPages);
     } catch (error) {
       console.error("Error fetching videos", error);
     }
@@ -21,7 +22,7 @@ const RelatedVideos= ({ handlePlayThis }) => {
 
   useEffect(() => {
     getAllVideos();
-  }, []);
+  }, [page]);
 
   const scrollToTop = () => {
     window.scrollTo({
