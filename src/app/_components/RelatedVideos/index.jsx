@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Pagination from "../Pagination/Pagination";
 
-const RelatedVideos= ({ handlePlayThis }) => {
+const RelatedVideos = ({ handlePlayThis }) => {
   const [videos, setVideos] = useState([]);
   const router = useRouter();
   const [page, setPage] = useState(1);
@@ -12,8 +12,9 @@ const RelatedVideos= ({ handlePlayThis }) => {
 
   const getAllVideos = async () => {
     try {
-      const res = await axios.get(`${api}videos`);
+      const res = await axios.get(`${api}videos?page=${page}`);
       setVideos(res?.data?.data);
+      setAllPages(res?.data?.totalPages);
     } catch (error) {
       console.error("Error fetching videos", error);
     }
@@ -21,7 +22,7 @@ const RelatedVideos= ({ handlePlayThis }) => {
 
   useEffect(() => {
     getAllVideos();
-  }, []);
+  }, [page]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -31,41 +32,36 @@ const RelatedVideos= ({ handlePlayThis }) => {
   };
 
   const handleVideoClick = (video) => {
-    scrollToTop(); // Scroll to top
-    handlePlayThis(video); // Handle playing the video
+    scrollToTop();
+    handlePlayThis(video);
   };
 
   return (
     <section className="p-6">
       <h3 className="text-2xl font-bold">More like this</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4  gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {videos?.map((video) => (
-          <div key={video?.url}>
-            <div
-              onClick={() => handleVideoClick(video)}
-              className="relative h-[200px] border rounded cursor-pointer p-1"
-              key={video._id}
-            >
-              {/* Background image div with blur */}
+          <div key={video?.url} onClick={() => handleVideoClick(video)}>
+            <div className="relative h-[200px] border rounded cursor-pointer p-1">
               <div
                 className="absolute p-2 rounded-xl inset-0 bg-cover bg-center before:absolute before:inset-0 before:bg-black/20 before:content-[''] before:z-[1]"
                 style={{
-                  backgroundImage: `url(${video.image})`, // Ensure the image URL is applied
-                  filter: "blur(8px)", // Apply blur to the background
-                  WebkitFilter: "blur(8px)", // For Safari support
+                  backgroundImage: `url(${video.image})`,
+                  filter: "blur(8px)",
+                  WebkitFilter: "blur(8px)",
                 }}
               ></div>
-              {/* Foreground image */}
               <img
-                className="h-full w-full object-contain rounded-lg relative z-10" // Image is above the blurred background
+                className="h-full w-full object-contain rounded-lg relative z-10"
                 src={video.image}
                 alt={video.name}
               />
             </div>
             <div className="my-1">
-              <p className="text-sm line-clamp-1">{video?.name} </p>
+              <p className="text-sm line-clamp-1">{video?.name}</p>
               <div className="flex justify-between text-xs text-gray-500">
-                <div>Views</div> <div>1 week ago</div>
+                <div>Views</div>
+                <div>1 week ago</div>
               </div>
             </div>
           </div>
