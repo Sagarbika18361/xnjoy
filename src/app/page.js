@@ -154,8 +154,9 @@ export default function Home() {
             )}
           </form>
         </div>
-        <section className="">
-          {showVideo && <VideoPlayer link={link} />}
+        <section className="grid grid-cols-4">
+          <div className="col-span-3">{showVideo && <VideoPlayer link={link} />}</div>
+          
         </section>
         <section>
           <RelatedVideos handlePlayThis={handlePlayThis} />

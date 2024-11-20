@@ -5,12 +5,12 @@ import { MdRemoveRedEye } from "react-icons/md";
 import Link from "next/link";
 export default function VideoCard({ video }) {
   return (
-    <Link href={`/${encodeURIComponent(video?.url)}`}>
+    <Link href={`/${encodeURIComponent(video?.url)}`} className="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
       <div
-        className="relative h-[200px] border rounded cursor-pointer p-1"
+        className="relative h-[200px] cursor-pointer group"
         key={video._id}
       >
-        {video.image ? (
+       {video.image ? (
           <>
             <div 
               className="absolute inset-0 bg-cover bg-center blur-md opacity-70"
@@ -21,7 +21,8 @@ export default function VideoCard({ video }) {
             <div className="relative z-10 h-full flex items-center justify-center p-0">
               <img 
                 className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-100"
-                src={video.image} 
+                src='/logo.png' 
+                onLoad={(e)=>e.target.src=video?.image}
                 alt={video.name || 'Video Thumbnail'}
                 onError={(e) => {
                   e.target.style.display = 'none';

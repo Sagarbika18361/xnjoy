@@ -8,9 +8,13 @@ body {
   color: white;
 }
 
+iframe html{
+  overflow: hidden !important;;
+}
 
-
-
+#document{
+  overflow:hidden !important ;
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
