@@ -2,12 +2,13 @@ import formatNumber from "@/utils/formatNumber";
 import timeAgo from "@/utils/timeAgo";
 import { IoMdThumbsUp } from "react-icons/io";
 import { MdRemoveRedEye } from "react-icons/md";
-export default function VideoCard({ video,handleVideoClick }) {
+import Link from "next/link";
+export default function VideoCard({ video }) {
   return (
-    <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-      <div 
-        onClick={handleVideoClick}
-        className="relative h-[250px] cursor-pointer group"
+    <Link href={`/${encodeURIComponent(video?.url)}`}>
+      <div
+        className="relative h-[200px] border rounded cursor-pointer p-1"
+        key={video._id}
       >
         {video.image ? (
           <>
@@ -53,7 +54,7 @@ export default function VideoCard({ video,handleVideoClick }) {
           <div className="text-gray-400">{timeAgo(video?.createdAt)}</div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
