@@ -10,6 +10,7 @@ const VideoPlayer = ({ link }) => {
           src={`https://www.terabox.tech/play.html?url=${link}`}
         ></iframe>
       )}
+      
     </div>
   );
 };
