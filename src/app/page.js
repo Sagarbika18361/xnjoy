@@ -5,6 +5,7 @@ import useSWR from "swr";
 import VideoPlayer from "./_components/VideoPlayer";
 import axios from "axios";
 import RelatedVideos from "./_components/RelatedVideos";
+import WarningModal from "./_components/Warning/WarningModal";
 
 const fetchWithToken = async (url) => {
   const res = await fetch(url);
@@ -160,6 +161,7 @@ export default function Home() {
           <RelatedVideos handlePlayThis={handlePlayThis} />
         </section>
       </div>
+      <WarningModal/>
     </main>
   );
 }
