@@ -1,0 +1,57 @@
+"use client";
+import React from "react";
+import Masonry from "react-masonry-css";
+import "./outfits.css";
+import OutfitsFilter from "./components/OutfitsFilter/OutfitsFilter";
+import HeaderOutfitsFilter from "./components/HeaderOutfitsFilter/HeaderOutfitsFilter";
+const Page = () => {
+  const outfits = [
+    "https://i.pinimg.com/564x/ce/45/7b/ce457bd3c7afb75404672ecbe20eee83.jpg",
+    "https://i.pinimg.com/564x/90/d6/d9/90d6d9c05353b95a1dc56b113b4ef4ae.jpg",
+    "https://i.pinimg.com/736x/5c/a4/1e/5ca41e8f8e3a3e1782a5ecb31411cf42.jpg",
+    "https://i.pinimg.com/564x/68/7d/6c/687d6c7c84ff5ee8d43bacf36717022c.jpg",
+    "https://i.pinimg.com/474x/17/ac/d4/17acd4f6709c0b476ec73f84d09ae215.jpg",
+    "https://i.pinimg.com/736x/8d/6a/ce/8d6acef8fb07dc8e4565066f485d2c49.jpg",
+    "https://i.pinimg.com/564x/8d/5d/a0/8d5da075c7c6d8adf85072bb5c6efa5c.jpg",
+    "https://i.pinimg.com/736x/85/6c/31/856c3196e715ace4c48a35610dee539c.jpg",
+  ];
+
+  const breakpointColumnsObj = {
+    default: 5, // 2 columns for default screen size
+    1100: 4, // 2 columns for screens wider than 1100px
+    700: 3, // 1 column for screens wider than 700px
+  };
+
+  return (
+    <section>
+      <div className="product-row">
+        <div className="d-none d-md-block">
+          <OutfitsFilter />
+        </div>
+        <div className="d-block d-md-none mb-4">
+          <HeaderOutfitsFilter />
+        </div>
+        <section>
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
+            {outfits.map((img) => (
+              <div key={img}>
+                <img
+                  src={img}
+                  alt="Outfit"
+                  className="w-full object-cover rounded-md"
+                  style={{ height: "auto" }}
+                />
+              </div>
+            ))}
+          </Masonry>
+        </section>
+      </div>
+    </section>
+  );
+};
+
+export default Page;

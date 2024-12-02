@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 
 const Pagination = ({ page, setPage, perPage, allPages }) => {
   const totalPages = allPages;
-  const maxPageNumbers = perPage || 5;
+  const maxPageNumbers = perPage || 3;
 
   const handlePageClick = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -31,7 +31,7 @@ const Pagination = ({ page, setPage, perPage, allPages }) => {
   };
 
   return (
-    <nav className="flex items-center justify-center space-x-2 my-4">
+    <nav className="flex items-center justify-center my-6 overflow-x-auto space-x-2 px-4 scrollbar-hide">
       {allPages > 0 && (
         <button
           onClick={() => handlePageClick(page - 1)}
@@ -42,16 +42,17 @@ const Pagination = ({ page, setPage, perPage, allPages }) => {
         </button>
       )}
 
-      {page > maxPageNumbers / 2 && totalPages > maxPageNumbers && (
+      {/* Show MoreHorizontal on the left if required */}
+      {page > Math.ceil(maxPageNumbers / 2) && totalPages > maxPageNumbers && (
         <>
           <button
             onClick={() => handlePageClick(1)}
-            className="px-3 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-100"
+            className="p-2 sm:px-3 sm:py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-100"
           >
             1
           </button>
-          <span className="px-3 py-2 text-sm text-gray-600">
-            <MoreHorizontal className="w-5 h-5" />
+          <span className="px-1 py-1 text-sm text-gray-50">
+            .
           </span>
         </>
       )}
@@ -60,31 +61,32 @@ const Pagination = ({ page, setPage, perPage, allPages }) => {
         <button
           key={pag}
           onClick={() => handlePageClick(pag)}
-          className={`px-3 py-2 text-sm font-medium border rounded-md 
+          className={`p-2 sm:px-3 sm:py-2 text-sm font-medium border rounded-md 
             ${
               page === pag
                 ? "bg-yellow-400 border-yellow-400 text-black"
                 : "text-gray-600 bg-white border-gray-300 hover:bg-gray-100"
             }`}
-          
         >
           {pag}
         </button>
       ))}
 
-      {totalPages - page >= maxPageNumbers / 2 && totalPages > maxPageNumbers && (
-        <>
-          <span className="px-3 py-2 text-sm text-gray-600">
-            <MoreHorizontal className="w-5 h-5" />
-          </span>
-          <button
-            onClick={() => handlePageClick(totalPages)}
-            className="px-3 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-100"
-          >
-            {totalPages}
-          </button>
-        </>
-      )}
+      {/* Show MoreHorizontal on the right if required */}
+      {totalPages - page > Math.floor(maxPageNumbers / 2) &&
+        totalPages > maxPageNumbers && (
+          <>
+            <span className="px-1 py-1 text-sm text-gray-50">
+             .
+            </span>
+            <button
+              onClick={() => handlePageClick(totalPages)}
+              className="p-2 sm:px-3 sm:py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-100"
+            >
+              {totalPages}
+            </button>
+          </>
+        )}
 
       {allPages > 0 && (
         <button

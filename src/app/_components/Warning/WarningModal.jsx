@@ -37,7 +37,7 @@ export default function WarningModal() {
         {/* Close Button */}
         <button
           onClick={handleCancel}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+          className="absolute top-7 text-xl right-4 text-gray-500 hover:text-gray-800 transition-colors"
         >
           ✕
         </button>
@@ -57,7 +57,7 @@ export default function WarningModal() {
             <line x1="12" y1="17" x2="12.01" y2="17"></line>
           </svg>
           <h3
-            className="text-xl font-bold text-red-900"
+            className="text-lg font-bold text-red-900"
             id="modal-title"
           >
             Adult Content Warning
@@ -79,7 +79,7 @@ export default function WarningModal() {
         </div>
 
         {/* Footer */}
-        <div className="bg-gray-100 p-6 flex space-x-4">
+        <div className="bg-gray-100 p-6 flex flex-col gap-4">
           <button
             onClick={handleAccept}
             className="flex-1 bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors font-semibold"

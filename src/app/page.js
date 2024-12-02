@@ -6,6 +6,11 @@ import VideoPlayer from "./_components/VideoPlayer";
 import axios from "axios";
 import RelatedVideos from "./_components/RelatedVideos";
 import WarningModal from "./_components/Warning/WarningModal";
+import { useRouter } from "next/navigation";
+import AnimeText from "./_components/AnimeText/AnimeText";
+import SplashScreen from "./_components/SplashScreen/SplashScreen";
+import Navbar from "./_components/Layout/Navbar";
+import RecentlyPlayed from "./_components/RecentlyPlayed/History";
 
 const fetchWithToken = async (url) => {
   const res = await fetch(url);
@@ -71,6 +76,8 @@ export default function Home() {
   const [showVideo, setShowVideo] = useState(false);
   const [loadingVideo, setLoadingVideo] = useState(false);
   const [linkLite, setLinkLite] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [secretKey, setSecretKey] = useState(null);
 
   const { data, error, isLoading } = useSWR(
     token ? [`/api?data=${encodeURIComponent(token)}`] : null,
@@ -82,12 +89,26 @@ export default function Home() {
     }
   );
 
+  function saveLinkToLocalStorage(obj) {
+    // Retrieve the existing links from local storage
+    const storedVideos = JSON.parse(localStorage.getItem("history")) || [];
+    // Check if the new link already exists
+    const filter = storedVideos?.filter((ele) => ele?.url === obj?.url);
+    if (filter?.length === 0) {
+      // Add the new link to the array
+      storedVideos.push(obj);
+      // Save the updated array back to local storage
+      localStorage.setItem("history", JSON.stringify(storedVideos));
+    }
+  }
+
   function Submit(e) {
     e.preventDefault();
     setShowVideo(true);
     setLoadingVideo(true);
     setToken(link);
     setLinkLite("");
+    // Save the link to local storage
   }
 
   useEffect(() => {
@@ -101,7 +122,8 @@ export default function Home() {
   const api = process.env.NEXT_PUBLIC_API_URL;
   const handleSaveVideo = async (payload) => {
     try {
-      await axios.post(`${api}videos`, payload);
+      const res = await axios.post(`${api}videos`, payload);
+      saveLinkToLocalStorage(res?.data);
     } catch (error) {
       // Handle error if necessary
     }
@@ -117,24 +139,40 @@ export default function Home() {
     }
   }, [data, token]);
 
-  const handlePlayThis = (video) => {
-    setShowVideo(true);
-    setLink(video?.url || "");
-  };
+  // Access sessionStorage only in the browser
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setSecretKey(sessionStorage.getItem("secretKey"));
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500); // Show splash screen for 3 seconds
+    return () => clearTimeout(timer); // Cleanup timeout
+  }, []);
+
+  if (loading) {
+    return <SplashScreen />;
+  }
 
   return (
     <main>
+      <Navbar />
       <div className="mt-28 sm:mt-20">
-        <div className="">
+        <div className="h-[50vh] pt-6 ">
+          {/* <AnimeText text={"Paste Terabox Link Here & Watch Without Ads"} /> */}
           <form
             onSubmit={(e) => Submit(e)}
-            className="flex w-[90%] sm:w-[50%] m-auto items-center flex-col sm:flex-row gap-4 sm:gap-0"
+            className="flex w-[95%]  search-box shadow-xl rounded-lg py-10 px-4 sm:p-10 sm:w-[70%] m-auto items-center flex-col  gap-4 "
           >
-            <div className="w-[100%] px-4 py-2 border-[1px] border-gray-400 rounded-full sm:rounded-l-full">
+            <div className="w-full sm:w-[90%] px-4 py-4 border-[2px] border-[#ffc900]  rounded-lg m-auto">
               <input
                 type="text"
-                placeholder="Enter Video URL"
-                className="outline-none w-full bg-transparent"
+                placeholder="Enter Terabox Video URL"
+                required
+                className="outline-none w-full sm:w-[80%] m-auto text-white bg-transparent"
                 onChange={(e) => {
                   setLink(e.target.value);
                   setLinkLite(e.target.value);
@@ -143,26 +181,35 @@ export default function Home() {
               />
             </div>
 
-            {linkLite && (
-              <button
-                className="px-4 py-2 border-[1px] text-[#ffc900] border-gray-400 rounded-full sm:rounded-r-full flex gap-2 items-center"
-                type="submit"
-              >
-                <FaPlay size={"18px"} className="text-[#ffc900]" />{" "}
-                {loadingVideo ? "Playing" : "Play"}
-              </button>
-            )}
+            <button
+              className="px-4 py-2 border-[1px] text-[#ffc900] border-gray-400 rounded-full sm:rounded-r-full flex gap-2 items-center"
+              type="submit"
+            >
+              <FaPlay size={"18px"} className="text-[#ffc900]" />{" "}
+              {loadingVideo ? "Playing" : "Play"}
+            </button>
           </form>
         </div>
         <section className="grid grid-cols-4">
-          <div className="col-span-3">{showVideo && <VideoPlayer link={link} />}</div>
-          
+          <div className="col-span-4 sm:col-span-3">
+            {showVideo && (
+              <VideoPlayer
+                link={link}
+                from="home"
+                onClose={() => setShowVideo(false)}
+              />
+            )}
+          </div>
         </section>
         <section>
-          <RelatedVideos handlePlayThis={handlePlayThis} />
+          {secretKey ? (
+            <RelatedVideos title="Top Played Videos" />
+          ) : (
+            <RecentlyPlayed />
+          )}
         </section>
       </div>
-      <WarningModal/>
+      {/* <WarningModal /> */}
     </main>
   );
 }

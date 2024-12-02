@@ -17,3 +17,12 @@
     --tw-bg-opacity: 1 !important;
     background-color: rgb(222 189 57 / 83%) !important;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
