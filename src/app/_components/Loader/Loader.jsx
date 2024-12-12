@@ -19,7 +19,7 @@ export default function Loader() {
         <rect fill="url(#loader-grad)" height="128" width="128" y="0" x="0"></rect>
       </mask>
     </defs>
-    <g stroke-dasharray="175.93 351.86" stroke-width="12" stroke-linecap="round">
+    <g stroke-dasharray="175.93 351.86" stroke-width="8" stroke-linecap="round">
       <g>
         <rect clip-path="url(#loader-eyes)" height="64" width="128" fill="hsl(193,90%,50%)"></rect>
         <g stroke="hsl(193,90%,50%)" fill="none">
@@ -39,3 +39,4 @@ export default function Loader() {
 </div>
   )
 }
+

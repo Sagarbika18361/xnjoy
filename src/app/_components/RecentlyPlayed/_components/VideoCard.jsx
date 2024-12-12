@@ -1,23 +1,41 @@
 "use client";
 import { FiTrash2 } from "react-icons/fi";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import VideoPlayerModal from "@/app/_components/VideoPlayer";
 
 export default function VideoCard({ video, onDelete }) {
   const [showVideo, setShowVideo] = useState(false);
   const [showThisVideo, setShowThisVideo] = useState(null);
-
+  let currentUrl = "";
+  let url = null;
+  if (typeof window !== "undefined") {
+    currentUrl = window.location.href;
+    url = new URL(currentUrl) || null;
+  }
+  // Handle back button to close the video player
+  useEffect(() => {
+    const handlePopState = () => {
+      setShowVideo(false); // Close the video player when the back button is pressed
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+  const handlePlayVideo = () => {
+    url?.searchParams.set("video", "playing");
+    window.history.pushState({}, "", url?.toString());
+    setShowThisVideo(video);
+    setShowVideo(true);
+  };
   return (
     <>
-      <div
-        className="bg-gray-800 relative rounded-xl overflow-hidden shadow-lg"
-      >
+      <div className="bg-gray-800 relative rounded-xl overflow-hidden shadow-lg">
         <div
-          className="relative h-[200px] cursor-pointer group"
+          className="relative h-[150px] sm:h-[200px] cursor-pointer group"
           onClick={() => {
-            setShowThisVideo(video);
-            setShowVideo(true);
+            handlePlayVideo();
           }}
         >
           {video.image ? (
@@ -35,9 +53,10 @@ export default function VideoCard({ video, onDelete }) {
                   height={200}
                   width={300}
                   className="max-h-full max-w-full object-contain"
-                  src={video?.image || "/logo.png"}
+                  src={"/logo.png"}
+                  onLoad={(e)=>e.target.src=video?.image}
                   loading="lazy"
-                  alt={ "Terabox Thumbnail"}
+                  alt={"Terabox Thumbnail"}
                   onError={(e) => {
                     e.target.src = "/logo.png";
                   }}

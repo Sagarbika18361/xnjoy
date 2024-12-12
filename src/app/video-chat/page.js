@@ -34,16 +34,16 @@ export default function VideoChats() {
         {false && (
           <div className="flex flex-col gap-4">
             {people.map((person) => (
-              <div class="px-8 py-4 bg-white rounded-xl shadow-lg dark:bg-gray-800">
-                <div class="flex items-center justify-between mt-4">
-                  <div class="flex items-center">
+              <div className="px-8 py-4 bg-white rounded-xl shadow-lg dark:bg-gray-800">
+                <div className="flex items-center justify-between mt-4">
+                  <div className="flex items-center">
                     <img
-                      class="hidden object-cover w-15 h-15 mr-4 rounded-full sm:block"
+                      className="hidden object-cover w-15 h-15 mr-4 rounded-full sm:block"
                       src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=40&q=80"
                       alt="avatar"
                     />
                     <a
-                      class="font-bold text-gray-700 text-lg cursor-pointer dark:text-gray-200"
+                      className="font-bold text-gray-700 text-lg cursor-pointer dark:text-gray-200"
                       tabindex="0"
                       role="link"
                     >
@@ -51,12 +51,12 @@ export default function VideoChats() {
                     </a>
                   </div>
                 </div>
-                <div class="flex mt-5 items-center justify-between">
-                  <span class="text-lg  font-normal text-gray-600 dark:text-gray-400">
+                <div className="flex mt-5 items-center justify-between">
+                  <span className="text-lg  font-normal text-gray-600 dark:text-gray-400">
                     Mar 10, 2024
                   </span>
                   <button
-                    class="px-6 py-1 text-lg font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500"
+                    className="px-6 py-1 text-lg font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500"
                     tabindex="0"
                     role="button"
                   >

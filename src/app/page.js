@@ -11,6 +11,7 @@ import AnimeText from "./_components/AnimeText/AnimeText";
 import SplashScreen from "./_components/SplashScreen/SplashScreen";
 import Navbar from "./_components/Layout/Navbar";
 import RecentlyPlayed from "./_components/RecentlyPlayed/History";
+import FollowUs from "./_components/FollowUs/FollowUs";
 
 const fetchWithToken = async (url) => {
   const res = await fetch(url);
@@ -78,7 +79,12 @@ export default function Home() {
   const [linkLite, setLinkLite] = useState("");
   const [loading, setLoading] = useState(true);
   const [secretKey, setSecretKey] = useState(null);
-
+  let currentUrl = "";
+  let url = null;
+  if (typeof window !== "undefined") {
+    currentUrl = window.location.href;
+    url = new URL(currentUrl) || null;
+  }
   const { data, error, isLoading } = useSWR(
     token ? [`/api?data=${encodeURIComponent(token)}`] : null,
     ([url]) => fetchWithToken(url),
@@ -104,6 +110,8 @@ export default function Home() {
 
   function Submit(e) {
     e.preventDefault();
+    url?.searchParams.set("video", "playing");
+    window.history.pushState({}, "", url?.toString());
     setShowVideo(true);
     setLoadingVideo(true);
     setToken(link);
@@ -146,12 +154,25 @@ export default function Home() {
     }
   }, []);
 
+  // Handle back button to close the video player
+  useEffect(() => {
+    const handlePopState = () => {
+      setShowVideo(false); // Close the video player when the back button is pressed
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1500); // Show splash screen for 3 seconds
     return () => clearTimeout(timer); // Cleanup timeout
   }, []);
+
+  console.log({ data, isLoading });
 
   if (loading) {
     return <SplashScreen />;
@@ -161,11 +182,11 @@ export default function Home() {
     <main>
       <Navbar />
       <div className="mt-28 sm:mt-20">
-        <div className="h-[50vh] pt-6 ">
+        <div className="h-[60vh] pt-6 ">
           {/* <AnimeText text={"Paste Terabox Link Here & Watch Without Ads"} /> */}
           <form
             onSubmit={(e) => Submit(e)}
-            className="flex w-[95%]  search-box shadow-xl rounded-lg py-10 px-4 sm:p-10 sm:w-[70%] m-auto items-center flex-col  gap-4 "
+            className="flex w-[95%] mb-4  search-box shadow-xl rounded-lg py-10 px-4 sm:p-10 sm:w-[70%] m-auto items-center flex-col  gap-4 "
           >
             <div className="w-full sm:w-[90%] px-4 py-4 border-[2px] border-[#ffc900]  rounded-lg m-auto">
               <input
@@ -189,24 +210,29 @@ export default function Home() {
               {loadingVideo ? "Playing" : "Play"}
             </button>
           </form>
+          <FollowUs />
         </div>
+  
         <section className="grid grid-cols-4">
           <div className="col-span-4 sm:col-span-3">
             {showVideo && (
               <VideoPlayer
                 link={link}
                 from="home"
+                video={data}
+                isLoading={isLoading}
                 onClose={() => setShowVideo(false)}
               />
             )}
           </div>
         </section>
+        <section></section>
         <section>
-          {secretKey ? (
-            <RelatedVideos title="Top Played Videos" />
-          ) : (
+          {/* {secretKey ? ( */}
+          <RelatedVideos title="Top Played Videos" />
+          {/* ) : (
             <RecentlyPlayed />
-          )}
+          )} */}
         </section>
       </div>
       {/* <WarningModal /> */}

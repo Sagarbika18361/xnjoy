@@ -7,27 +7,52 @@ import { AiFillLock } from "react-icons/ai";
 import Link from "next/link";
 import Image from "next/image";
 import VideoPlayerModal from "../VideoPlayer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import PricingModal from "../Plans/components/PricingModal";
 import { FiTrash2 } from "react-icons/fi";
 import { admins } from "@/constant";
+import FollowUs from "../FollowUs/FollowUsToAccess";
 
 export default function VideoCard({ video, handleDelete, deleting }) {
   const [showVideo, setShowVideo] = useState(false);
   const [showThisVideo, setShowThisVideo] = useState(null);
   const secretKey = sessionStorage.getItem("secretKey");
   const [showPlans, setShowPlans] = useState(false);
+  let currentUrl = '';
+  let url = null;
+  if (typeof window !== 'undefined') {
+    currentUrl = window.location.href;
+    url = new URL(currentUrl) || null;
+  }
+  // Handle back button to close the video player
+useEffect(() => {
+  const handlePopState = () => {
+    setShowVideo(false); // Close the video player when the back button is pressed
+  };
+  window.addEventListener("popstate", handlePopState);
+  return () => {
+    window.removeEventListener("popstate", handlePopState);
+  };
+}, []);
+
+const handlePlayVideo=()=>{
+  url?.searchParams.set('video','playing')
+  window.history.pushState({}, '', url?.toString());
+  setShowThisVideo(video);
+  setShowVideo(true);
+}
+
+
   return (
     <>
       <div
         onClick={() => {
-          if (secretKey) {
-            setShowThisVideo(video);
-            setShowVideo(true);
-          } else {
-            setShowPlans(true);
-          }
+          // if (secretKey) {
+            handlePlayVideo()
+          // } else {
+          //   setShowPlans(true);
+          // }
         }}
         className="bg-gray-800 relative rounded-xl overflow-hidden shadow-lg"
       >
@@ -45,14 +70,15 @@ export default function VideoCard({ video, handleDelete, deleting }) {
               />
               <div
                 className={`relative z-10 h-full flex items-center justify-center p-0 ${
-                  secretKey ? "" : "blur-md"
+                  true ? "" : "blur-md"
                 }`}
               >
                 <Image
                   height={200}
                   width={300}
                   className="max-h-full max-w-full object-contain"
-                  src={video?.image || "/logo.png"}
+                  src={"/logo.png"}
+                  onLoad={(e)=>e.target.src=video?.image}
                   loading="lazy"
                   alt={"Terabox Thumbnail"}
                   onError={(e) => {
@@ -61,7 +87,7 @@ export default function VideoCard({ video, handleDelete, deleting }) {
                 />
               </div>
               {/* Lock Icon */}
-              {!secretKey && (
+              {!true && (
                 <div className="absolute z-10 inset-0 flex items-center justify-center ">
                   <div className="flex flex-col justify-center items-center">
                     <svg
@@ -80,9 +106,9 @@ export default function VideoCard({ video, handleDelete, deleting }) {
                       <rect x="3" y="10" width="18" height="12" rx="2" />
                       <path d="M7 10V7a5 5 0 0 1 10 0v3" />
                     </svg>
-                    {/* <button className="border-2 border-gray-100 text-gray-100 mt-4 text-sm rounded-full py-1 px-4">
-                      Subscribe to watch Post
-                    </button> */}
+                    <button className="border-2 border-gray-100 text-gray-100 mt-4 text-xs rounded-full py-1 px-2">
+                      Follow us to watch Post
+                    </button>
                   </div>{" "}
                   {/* <AiFillLock className="text-white text-4xl opacity-80" /> */}
                 </div>
@@ -146,7 +172,8 @@ export default function VideoCard({ video, handleDelete, deleting }) {
           video={showThisVideo}
         />
       )}
-      {showPlans && <PricingModal handleCancel={() => setShowPlans(false)} />}
+      {/* {showPlans && <PricingModal handleCancel={() => setShowPlans(false)} />} */}
+      {showPlans && <FollowUs handleCancel={() => setShowPlans(false)}/>}
     </>
   );
 }

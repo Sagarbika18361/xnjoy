@@ -27,14 +27,12 @@ export default function RecentlyPlayed() {
               xmlns="http://www.w3.org/2000/svg"
               width="28"
               height="28"
-              className="mt-1"
+       
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-history"
+            
+              className="lucide lucide-history mt-1"
             >
               <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
               <path d="M3 3v5h5" />
@@ -42,9 +40,9 @@ export default function RecentlyPlayed() {
             </svg>{" "}
             History
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {[...videos]?.reverse()?.map((video) => (
-              <VideoCard video={video} key={video.id} onDelete={handleDelete} />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {[...videos]?.reverse()?.map((video,index) => (
+              <VideoCard video={video} key={index} onDelete={handleDelete} />
             ))}
           </div>
         </section>

@@ -1,0 +1,52 @@
+.videoPlayer {
+    width: 95%;
+    max-width: 750px;
+    position: relative;
+    font-size: 0;
+    overflow: hidden;
+  }
+  
+  .video {
+    width: auto;
+    height: 100%;
+    margin: auto;
+  }
+  
+  .controls {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    flex-wrap: wrap;
+  }
+  
+  .controlsButton {
+    background: none;
+    border: 0;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    max-width: 50px;
+  }
+  
+  .slider {
+    width: 10px;
+    height: 30px;
+  }
+  
+  .progress {
+    flex: 10;
+    position: relative;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .progressFilled {
+    width: var(--progress, 0%);
+    background: #00ff40;
+    height: 100%;
+  }
+  

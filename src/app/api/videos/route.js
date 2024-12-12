@@ -115,72 +115,72 @@ export async function POST(req) {
   }
 }
 
-export async function GET(req) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
+// export async function GET(req) {
+//   const { searchParams } = new URL(req.url);
+//   const id = searchParams.get("id");
 
-  try {
-    await connectToDatabase();
+//   try {
+//     await connectToDatabase();
 
-    const video = await findVideoByIdOrUrl(id);
+//     const video = await findVideoByIdOrUrl(id);
 
-    if (!video) {
-      return new Response(JSON.stringify({ error: "Video not found" }), {
-        status: 404,
-      });
-    }
+//     if (!video) {
+//       return new Response(JSON.stringify({ error: "Video not found" }), {
+//         status: 404,
+//       });
+//     }
 
-    return new Response(JSON.stringify(video), { status: 200 });
-  } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-    });
-  }
-}
+//     return new Response(JSON.stringify(video), { status: 200 });
+//   } catch (error) {
+//     return new Response(JSON.stringify({ error: error.message }), {
+//       status: 500,
+//     });
+//   }
+// }
 
-export async function POST(req) {
-  const { pathname } = new URL(req.url);
-  const identifier = pathname.split("/").pop();
+// export async function POST(req) {
+//   const { pathname } = new URL(req.url);
+//   const identifier = pathname.split("/").pop();
 
-  const body = await req.json();
+//   const body = await req.json();
 
-  try {
-    await connectToDatabase();
+//   try {
+//     await connectToDatabase();
 
-    const video = await findVideoByIdOrUrl(identifier);
+//     const video = await findVideoByIdOrUrl(identifier);
 
-    if (!video) {
-      return new Response(JSON.stringify({ error: "Video not found" }), {
-        status: 404,
-      });
-    }
+//     if (!video) {
+//       return new Response(JSON.stringify({ error: "Video not found" }), {
+//         status: 404,
+//       });
+//     }
 
-    if (pathname.endsWith("/like")) {
-      video.likes += 1;
-    } else if (pathname.endsWith("/dislike")) {
-      video.dislikes += 1;
-    } else if (pathname.endsWith("/view")) {
-      video.views += 1;
-    } else if (pathname.endsWith("/vote")) {
-      video.votes += 1;
-    } else {
-      return new Response(JSON.stringify({ error: "Invalid endpoint" }), {
-        status: 400,
-      });
-    }
+//     if (pathname.endsWith("/like")) {
+//       video.likes += 1;
+//     } else if (pathname.endsWith("/dislike")) {
+//       video.dislikes += 1;
+//     } else if (pathname.endsWith("/view")) {
+//       video.views += 1;
+//     } else if (pathname.endsWith("/vote")) {
+//       video.votes += 1;
+//     } else {
+//       return new Response(JSON.stringify({ error: "Invalid endpoint" }), {
+//         status: 400,
+//       });
+//     }
 
-    await video.save();
+//     await video.save();
 
-    return new Response(
-      JSON.stringify({ message: "Action successful", video }),
-      { status: 200 }
-    );
-  } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-    });
-  }
-}
+//     return new Response(
+//       JSON.stringify({ message: "Action successful", video }),
+//       { status: 200 }
+//     );
+//   } catch (error) {
+//     return new Response(JSON.stringify({ error: error.message }), {
+//       status: 500,
+//     });
+//   }
+// }
 
 export async function PUT(req) {
   const { searchParams } = new URL(req.url);

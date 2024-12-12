@@ -17,7 +17,7 @@ export const Pricing = () => {
                 <p className="text-sm text-gray-900 flex gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 text-blue-500"
+                    className="w-5 h-5 text-blue-500"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -32,7 +32,7 @@ export const Pricing = () => {
                 <p className="text-sm text-gray-900 flex gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 text-red-400"
+                    className="w-5 h-5 text-red-400"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -47,7 +47,7 @@ export const Pricing = () => {
                 <p className="text-sm text-gray-900 flex gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 text-red-400"
+                    className="w-5 h-5 text-red-400"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -87,7 +87,7 @@ export const Pricing = () => {
                 <p className="text-sm text-gray-900 flex gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 text-blue-500"
+                    className="w-5 h-5 text-blue-500"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -102,7 +102,7 @@ export const Pricing = () => {
                 <p className="text-sm text-gray-900 flex gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 text-blue-500"
+                    className="w-5 h-5 text-blue-500"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -117,7 +117,7 @@ export const Pricing = () => {
                 <p className="text-sm text-gray-900 flex gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 text-red-400"
+                    className="w-5 h-5 text-red-400"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -157,7 +157,7 @@ export const Pricing = () => {
                 <p className="text-sm text-gray-900 flex gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 text-blue-500"
+                    className="w-5 h-5 text-blue-500"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -172,7 +172,7 @@ export const Pricing = () => {
                 <p className="text-sm text-gray-900 flex gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 text-blue-500"
+                    className="w-5 h-5 text-blue-500"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -187,7 +187,7 @@ export const Pricing = () => {
                 <p className="text-sm text-gray-900 flex gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 text-blue-500"
+                    className="w-5 h-5 text-blue-500"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
